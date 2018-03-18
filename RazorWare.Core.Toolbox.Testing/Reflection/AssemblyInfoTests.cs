@@ -8,15 +8,16 @@ using RazorWare.Reflection;
 namespace RazorWare.Toolbox.Testing {
    [TestClass]
    public class AssemblyInfoTests {
+      private Assembly testAssembly;
 
       [TestInitialize]
       public void InitializeTest( ) {
-         Assembly.LoadFile(Path.Combine(Directory.GetCurrentDirectory(), @"_items\RazorWare.NetDb.dll"));
+         testAssembly = Assembly.LoadFile(Path.Combine(Directory.GetCurrentDirectory(), @"_items\RazorWare.NetDb.dll"));
       }
 
       [TestMethod]
       public void InitializeAssemblyInfo( ) {
-         var expAsm = "RazorWare.NetDb";
+         var expAsm = "RzWare.NetDb";
          var asmInfo = new AssemblyInfo(expAsm);
 
          Assert.AreEqual(expAsm, asmInfo.Name);

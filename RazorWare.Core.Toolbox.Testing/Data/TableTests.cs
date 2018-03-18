@@ -156,6 +156,8 @@ namespace RazorWare.Toolbox.Testing {
       public void PersistTableToFile( ) {
          InitializeTable();
          persons.Save();
+
+         ISchema schema = Schema.FromTable(persons.Name);
       }
 
       private void InitializeTable( ) {

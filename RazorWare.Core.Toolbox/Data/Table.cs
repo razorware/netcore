@@ -23,11 +23,9 @@ namespace RazorWare.Data {
 
       public string Name {
          get { return mName; }
-         set {
-            mName = value;
-            file = $"{mName.ToLower()}.dat";
-         }
+         set { SetTableName(value); }
       }
+
       public bool HasErrors => hasErrors;
       public int RowCount => cache.RowCount;
 
@@ -38,8 +36,9 @@ namespace RazorWare.Data {
           * ***/
       }
       public Table(string name, ISchema schema, int startRowId) {
-         mName = name;
+         SetTableName(name);
          mSchema = schema;
+         Schema.SetTable(this, mSchema);
 
          if (mSchema != null) {
             hasErrors = false;
@@ -111,6 +110,11 @@ namespace RazorWare.Data {
          return mSchema.Fields
             .Select(f => f.Name)
             .ToArray();
+      }
+
+      private void SetTableName(string value) {
+         mName = value;
+         file = $"{mName.ToLower()}.dat";
       }
 
       public class TableRow {

@@ -13,6 +13,7 @@ namespace RazorWare.Data {
       internal const byte RC_OKAY = 0x00;
       internal const byte RC_ERROR = 0x01;
 
+      private static Dictionary<string, ISchema> tableSchemaMap = new Dictionary<string, ISchema>();
       private static readonly Encoding Encoder = Encoding.UTF8;
 
       private readonly int id;
@@ -34,6 +35,7 @@ namespace RazorWare.Data {
       /// Get total row width including property headers
       /// </summary>
       public int Width => fields.Count * DataType.TYPESIZE;
+
       /// <summary>
       /// Retrieves a read only list of fields in the current schema
       /// </summary>
@@ -111,6 +113,10 @@ namespace RazorWare.Data {
          return func(fields.ToArray());
       }
 
+      public static ISchema FromTable(string name) {
+         return tableSchemaMap[name];
+      }
+
       public int Ordinal(IField field) {
          return fields.IndexOf((Field)field);
       }
@@ -143,13 +149,13 @@ namespace RazorWare.Data {
             // write property count
             binWriter.Write(fields.Count);
             // write each property
-            foreach(var p in fields) {
+            foreach(var f in fields) {
                // write type
-               binWriter.Write((byte[])p.Type);
+               binWriter.Write((byte[])f.Type);
                // write attributes
-               binWriter.Write((byte)p.Attributes);
+               binWriter.Write((byte)f.Attributes);
                // write name (binary writer prfixes string w/ length)
-               binWriter.Write(p.Name);
+               binWriter.Write(f.Name);
             }
          }
       }
@@ -167,6 +173,10 @@ namespace RazorWare.Data {
 
       public override int GetHashCode( ) {
          return base.GetHashCode();
+      }
+
+      internal static void SetTable(Table table, ISchema schema) {
+         tableSchemaMap[table.Name] = schema;
       }
 
       internal class Field : IField {

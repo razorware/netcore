@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "RazorWare.TestBench/1.0.0": {
+        "dependencies": {
+          "RazorWare.Core": "1.0.0"
+        },
         "runtime": {
           "RazorWare.TestBench.dll": {}
+        }
+      },
+      "RazorWare.Core/1.0.0": {
+        "runtime": {
+          "RazorWare.Core.dll": {}
         }
       }
     }
   },
   "libraries": {
     "RazorWare.TestBench/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RazorWare.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

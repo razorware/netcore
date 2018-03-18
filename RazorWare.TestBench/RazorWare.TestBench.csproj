@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RzWare.Core.Toolbox\RazorWare.Core.Toolbox.csproj" />
+    <ProjectReference Include="..\RazorWare.Core.Toolbox\RazorWare.Core.Toolbox.csproj" />
   </ItemGroup>
 
 </Project>

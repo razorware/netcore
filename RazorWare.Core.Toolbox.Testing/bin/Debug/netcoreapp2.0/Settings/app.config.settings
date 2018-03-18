@@ -1,0 +1,82 @@
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="App.Config" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="App.Config">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Section" type="xs:string" minOccurs="0" />
+                <xs:element name="ReadOnly" type="xs:boolean" minOccurs="0" />
+                <xs:element name="State" msdata:DataType="RzWare.Data.DataExtensions+DataState, RzWare.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Settings" msdata:DataType="System.Data.DataTable, System.Data.Common, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" type="xs:anyType" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <App.Config>
+    <Section>Application</Section>
+    <ReadOnly>true</ReadOnly>
+    <State>-1</State>
+    <Settings>
+      <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Application" msdata:UseCurrentLocale="true">
+          <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="Application">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Key" type="xs:string" minOccurs="0" />
+                    <xs:element name="Value" type="xs:base64Binary" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:schema>
+      <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+        <DocumentElement>
+          <Application diffgr:id="Application1" msdata:rowOrder="0">
+            <Key>SystemSetting</Key>
+            <Value>6AMAAA==</Value>
+          </Application>
+        </DocumentElement>
+      </diffgr:diffgram>
+    </Settings>
+  </App.Config>
+  <App.Config>
+    <Section>User</Section>
+    <ReadOnly>false</ReadOnly>
+    <State>-1</State>
+    <Settings>
+      <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="User" msdata:UseCurrentLocale="true">
+          <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="User">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Key" type="xs:string" minOccurs="0" />
+                    <xs:element name="Value" type="xs:base64Binary" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:schema>
+      <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+        <DocumentElement>
+          <User diffgr:id="User1" msdata:rowOrder="0">
+            <Key>DefaultPath</Key>
+            <Value>LlxkZWZhdWx0</Value>
+          </User>
+        </DocumentElement>
+      </diffgr:diffgram>
+    </Settings>
+  </App.Config>
+</NewDataSet>

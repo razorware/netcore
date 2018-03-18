@@ -8,5 +8,10 @@ Update this readme with notes on features, bug fixes, etc.
 
 * DataExtensions.cs - 
   Implementing a set of extensions to build and configure a schema. The delegates are extended to create a single fluent API delegate.
-  This means that a fluent delegate can be further extended prior to execution and execution is essentially lazy. Performance *seems* to
-  be improved over instanced classes and class instance extensions although no hard data has been generated to substantiate the same.
+  This means that a fluent delegate can be further extended prior to execution and execute immediate, lazy or a mix.
+
+  Prior to working on `DataExtensions`, you should have a deep understanding of delegates. Take time to understand what the `DataExtensions`
+  API is doing and how it behaves. Seemingly minor changes in the behavior of a delegate can have extensive ramifications throughout the 
+  execution of the delegate.
+
+  Benefits of this particular fluent API paradigm (delegate extensions) include the ease of threading and possibility of atomic execution.

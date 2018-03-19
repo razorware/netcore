@@ -9,9 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.Core.Toolbox.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.TestBench", "RazorWare.TestBench\RazorWare.TestBench.csproj", "{EA83DCBB-71EB-4A6C-BDF3-A3F05169A73C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_misc", "_misc", "{4C235DB7-4040-4C4C-AA40-8A9B0364794A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_READMEs", "_READMEs", "{4C235DB7-4040-4C4C-AA40-8A9B0364794A}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5CA50087-8A16-4FE8-BA98-737C98294261}"
+	ProjectSection(SolutionItems) = preProject
+		RazorWare.Core.Toolbox\Data\README.md = RazorWare.Core.Toolbox\Data\README.md
 	EndProjectSection
 EndProject
 Global
@@ -35,6 +40,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5CA50087-8A16-4FE8-BA98-737C98294261} = {4C235DB7-4040-4C4C-AA40-8A9B0364794A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {885414A8-3895-4331-8312-05AE9A8B42AE}

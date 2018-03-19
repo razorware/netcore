@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <None Remove="Data\README.md" />
+    <None Remove="Data\Schema.cs~RF36aff83.TMP" />
   </ItemGroup>
 
   <ItemGroup>

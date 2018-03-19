@@ -8,6 +8,7 @@ using RazorWare.Testing._classes;
 
 using RazorWare.Dynamics;
 using static RazorWare.Dynamics.DynamicsExtensions;
+using System.ComponentModel;
 
 namespace RazorWare.Toolbox.Testing {
    [TestClass]
@@ -61,11 +62,17 @@ namespace RazorWare.Toolbox.Testing {
       [TestMethod]
       public void AddTypeInterfaceDelegate( ) {
          var bldrDelegate = GetTypeBuilder<IPerson>()
-            .AddInterfaces(typeof(IFoo));
+            .AddInterfaces(typeof(IFoo))
+            .AddInterfaces(typeof(INotifyPropertyChanged), typeof(IEquatable<IPerson>));
 
          var typeBuilder = bldrDelegate();
+         var interfaces = typeBuilder.GetInterfaces().ToList();
 
-         Assert.IsTrue(typeBuilder.GetInterfaces().Any(i => i == typeof(IFoo)));
+         Assert.IsTrue(interfaces.Any(i => i == typeof(IFoo)));
+         Assert.IsTrue(interfaces.Any(i => i == typeof(INotifyPropertyChanged)));
+         Assert.IsTrue(interfaces.Any(i => i == typeof(IEquatable<IPerson>)));
       }
+
+
    }
 }

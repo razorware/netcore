@@ -5,38 +5,43 @@ using System.Collections.Generic;
 using RazorWare.Reflection;
 
 namespace RazorWare.Dynamics {
-   public delegate TypeBuilder BuildType<TModel>( );
+   internal delegate TypeBuilder BuildType<TModel>( );
 
    public static class DynamicsExtensions {
       private static readonly Dictionary<Type, AssemblyBuilder> typeAsmBuilderMap = new Dictionary<Type, AssemblyBuilder>();
       private static readonly Dictionary<Type, TypeBuilder> typeTypeBuilderMap = new Dictionary<Type, TypeBuilder>();
+      private static readonly Dictionary<Type, MethodInfo[]> typeMethodInfosMap = new Dictionary<Type, MethodInfo[]>() {
+         { typeof(IProxy), typeof(IProxy).GetMethods() }
+      };
 
-      public static BuildType<TModel> GetTypeBuilder<TModel>( ) {
+      internal static BuildType<TModel> GetTypeBuilder<TModel>( ) {
          var type = typeof(TModel);
 
-         return ( ) => {
+         BuildType<TModel> builder = ( ) => {
             if (!typeTypeBuilderMap.TryGetValue(type, out TypeBuilder typeBuilder)) {
                var asmBldr = GetAssemblyBuilder<TModel>();
                var moduleBuilder = asmBldr.DefineDynamicModule($"{type.Name}ProxyModule");
 
                typeTypeBuilderMap[type] = typeBuilder = moduleBuilder.DefineType(type.Name + "_Proxy", TypeAttributes.Public);
-               typeBuilder.AddInterfaceImplementation(type);
-               typeBuilder.AddInterfaceImplementation(typeof(IProxy));
             }
 
             return typeBuilder;
          };
+
+         builder.AddInterfaces(type, typeof(IProxy));
+
+         return builder;
       }
 
-      public static BuildType<TModel> AddInterfaces<TModel>(this BuildType<TModel> builder, params Type[] interfaces) {
-         foreach (var i in interfaces) {
-            builder().AddInterfaceImplementation(typeof(TModel));
+      internal static BuildType<TModel> AddInterfaces<TModel>(this BuildType<TModel> builder, params Type[] interfaces) {
+         foreach (var iType in interfaces) {
+            builder().AddInterfaceImplementation(iType);
          }
 
          return builder;
       }
 
-      public static AssemblyInfo Assembly<TModel>(this BuildType<TModel> builder) {
+      internal static AssemblyInfo Assembly<TModel>(this BuildType<TModel> builder) {
          return new AssemblyInfo(builder().Name);
       }
 
@@ -51,6 +56,20 @@ namespace RazorWare.Dynamics {
          }
 
          return asmBuilder;
+      }
+
+      private static BuildType<TModel> BuildConstructor<TModel>(this BuildType<TModel> builder) {
+         var ctorBuilder = builder().DefineConstructor(
+          MethodAttributes.Public,
+          CallingConventions.Standard,
+          new Type[] { });
+
+         var ilGenerator = ctorBuilder.GetILGenerator();
+         ilGenerator.EmitWriteLine($"Creating {builder().Name} instance");
+
+         ilGenerator.Emit(OpCodes.Ret);
+
+         return builder;
       }
    }
 }

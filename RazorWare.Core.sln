@@ -19,6 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5CA50087-8
 		RazorWare.Core.Toolbox\Data\README.md = RazorWare.Core.Toolbox\Data\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dynamics", "Dynamics", "{DA0C4D03-DC41-48AE-8958-96E70AD2D2F4}"
+	ProjectSection(SolutionItems) = preProject
+		RazorWare.Core.Toolbox\Dynamics\README.md = RazorWare.Core.Toolbox\Dynamics\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +48,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5CA50087-8A16-4FE8-BA98-737C98294261} = {4C235DB7-4040-4C4C-AA40-8A9B0364794A}
+		{DA0C4D03-DC41-48AE-8958-96E70AD2D2F4} = {4C235DB7-4040-4C4C-AA40-8A9B0364794A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {885414A8-3895-4331-8312-05AE9A8B42AE}

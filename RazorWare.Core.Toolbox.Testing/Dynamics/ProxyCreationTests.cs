@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using RazorWare.Testing._classes;
+using static RazorWare.Testing._classes.TestProxyGenerator;
 
 using RazorWare.Dynamics;
 using static RazorWare.Dynamics.DynamicsExtensions;
@@ -37,6 +38,18 @@ namespace RazorWare.Toolbox.Testing {
       }
       #endregion
 
+      #region TestProxyGenerator
+      [TestMethod]
+      public void GenerateIFooProxy( ) {
+         // Only tests the creation of the proxy, not the methods within
+         var today = DateTime.Now.DayOfWeek;
+         var fooProxy = GetProxyFor<IFoo>();
+
+         Assert.IsNotNull(fooProxy);
+         Assert.IsInstanceOfType(fooProxy, typeof(IFoo));
+      }
+      #endregion
+
       [TestMethod]
       public void ProxyTypeBuilderDelegate( ) {
          var bldrDelegate = GetTypeBuilder<IPerson>();
@@ -48,15 +61,16 @@ namespace RazorWare.Toolbox.Testing {
          var typeBuilder = bldrDelegate();
 
          Assert.IsNotNull(typeBuilder);
-         Assert.AreEqual("IPerson_Proxy", bldrDelegate.Assembly().Name);
+         Assert.AreEqual("IPerson", bldrDelegate.Assembly().Name);
 
          var interfaces = typeBuilder.GetInterfaces().ToList();
 
+         Assert.IsTrue(interfaces.Any());
          Assert.AreEqual(expected, interfaces[0]);
 
-         expected = typeof(IProxy);
+         expected = typeof(Proxy);
 
-         Assert.AreEqual(expected, interfaces[1]);
+         Assert.AreEqual(expected, typeBuilder.BaseType);
       }
 
       [TestMethod]

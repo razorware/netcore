@@ -19,17 +19,18 @@ namespace RazorWare.Dynamics {
          var type = typeof(TModel);
 
          BuildType<TModel> builder = ( ) => {
+            var proxyType = typeof(Proxy);
+
             if (!typeTypeBuilderMap.TryGetValue(type, out TypeBuilder typeBuilder)) {
                var asmBldr = GetAssemblyBuilder<TModel>();
                var moduleBuilder = asmBldr.DefineDynamicModule($"{type.Name}ProxyModule");
 
-               typeTypeBuilderMap[type] = typeBuilder = moduleBuilder.DefineType(type.Name + "_Proxy", TypeAttributes.Public);
+               typeTypeBuilderMap[type] = typeBuilder = moduleBuilder.DefineType($"{type.Name}", TypeAttributes.Public, proxyType);
+               typeBuilder.AddInterfaceImplementation(type);
             }
 
             return typeBuilder;
          };
-
-         builder.AddInterfaces(type, typeof(IProxy));
 
          return builder;
       }
@@ -48,11 +49,12 @@ namespace RazorWare.Dynamics {
       }
 
       private static AssemblyBuilder GetAssemblyBuilder<TModel>( ) {
+         var proxyType = typeof(Proxy);
          var type = typeof(TModel);
 
          if (!typeAsmBuilderMap.TryGetValue(type, out AssemblyBuilder asmBuilder)) {
             var methodInfos = type.GetMethods();
-            var asmName = new AssemblyName($"{type.Name}_Proxy");
+            var asmName = new AssemblyName($"{type.Name}");
 
             typeAsmBuilderMap[type] = asmBuilder = AssemblyBuilder.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Run);
          }

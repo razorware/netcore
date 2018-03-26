@@ -24,4 +24,8 @@
     <Folder Include="Data\IO\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
+  </ItemGroup>
+
 </Project>

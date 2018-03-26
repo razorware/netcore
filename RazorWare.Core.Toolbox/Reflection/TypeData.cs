@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace RazorWare.Reflection {
-   public class TypeData : IEquatable<Type>, IEquatable<TypeCode> {
+   public class TypeData : IEquatable<Type> {
 
       #region primitive types
       public static TypeData Null = new TypeData(typeof(DBNull));
@@ -39,19 +39,15 @@ namespace RazorWare.Reflection {
             return false;
          }
 
-         return Equals(((TypeData)obj).TypeCode);
+         return Equals(((TypeData)obj).Type);
       }
 
       public bool Equals(Type other) {
          return Type.Equals(other);
       }
 
-      public bool Equals(TypeCode other) {
-         return TypeCode == other;
-      }
-
       public override int GetHashCode( ) {
-         return TypeCode.GetHashCode();
+         return Type.GetHashCode();
       }
 
       public override string ToString( ) {

@@ -61,10 +61,6 @@ namespace RazorWare.Reflection {
          return size;
       }
 
-      public static TypeData GetTypeData<TType>(this TType obj) {
-         return GetTypeData(typeof(TType));
-      }
-
       public static TypeData GetTypeData(this Type type) {
          switch (type.Name) {
             case "DBNull":

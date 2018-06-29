@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.ForgeFactory", "RazorWare.ForgeFactory.Application\RazorWare.ForgeFactory\RazorWare.ForgeFactory.csproj", "{8187522F-38E3-4521-BCEE-FFF372ADC72C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.ForgeFactory.AppConsole", "RazorWare.ForgeFactory.Application\RazorWare.ForgeFactory.AppConsole\RazorWare.ForgeFactory.AppConsole.csproj", "{D30FA20F-B064-44FD-BE49-F258BF3D7E16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Documentation|Any CPU = Documentation|Any CPU
+		Nsis|Any CPU = Nsis|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Nsis|Any CPU.ActiveCfg = Release|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Nsis|Any CPU.Build.0 = Release|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8187522F-38E3-4521-BCEE-FFF372ADC72C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Nsis|Any CPU.ActiveCfg = Release|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Nsis|Any CPU.Build.0 = Release|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D30FA20F-B064-44FD-BE49-F258BF3D7E16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {808D0641-3FCE-4FA1-9ED5-97DF380C5A0A}
+	EndGlobalSection
+EndGlobal

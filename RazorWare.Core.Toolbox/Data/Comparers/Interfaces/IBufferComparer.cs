@@ -1,7 +1,6 @@
-﻿namespace RazorWare.Data.Comparers {
-   public interface IBufferComparer {
-        int Index { get; }
+﻿using System.Collections.Generic;
 
-        ComparerResult Equals(byte[] buff1, byte[] buff2);
-    }
+namespace RazorWare.Data.Comparers {
+   public unsafe interface IBufferComparer : IEqualityComparer<byte[]> {
+   }
 }

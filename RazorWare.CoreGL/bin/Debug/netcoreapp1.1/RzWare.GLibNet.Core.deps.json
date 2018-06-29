@@ -1,0 +1,142 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v1.1",
+    "signature": "ce0061f550550a206560b6ea5464e91d4b0370ad"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v1.1": {
+      "RzWare.GLibNet.Core/1.0.0": {
+        "dependencies": {
+          "FreeImage-dotnet-core": "4.3.5",
+          "OpenTK.NETCore": "1.1.2749.6433"
+        },
+        "runtime": {
+          "RzWare.GLibNet.Core.dll": {}
+        }
+      },
+      "FreeImage-dotnet-core/4.3.5": {
+        "dependencies": {
+          "System.Drawing-dotnet-core": "1.2.3"
+        },
+        "runtime": {
+          "lib/netstandard1.6/FreeImage-dotnet-core.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/osx.10.10-x64/native/FreeImage.dylib": {
+            "rid": "osx.10.10-x64",
+            "assetType": "native"
+          },
+          "runtimes/ubuntu.16.04-x64/native/FreeImage.so": {
+            "rid": "ubuntu.16.04-x64",
+            "assetType": "native"
+          },
+          "runtimes/win7-x64/native/FreeImage.dll": {
+            "rid": "win7-x64",
+            "assetType": "native"
+          },
+          "runtimes/win7-x86/native/FreeImage.dll": {
+            "rid": "win7-x86",
+            "assetType": "native"
+          }
+        }
+      },
+      "OpenTK.NETCore/1.1.2749.6433": {
+        "dependencies": {
+          "System.Collections.Specialized": "4.0.1",
+          "System.ComponentModel.Primitives": "4.1.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/OpenTK.dll": {}
+        }
+      },
+      "System.Collections.NonGeneric/4.0.1": {
+        "runtime": {
+          "lib/netstandard1.3/System.Collections.NonGeneric.dll": {}
+        }
+      },
+      "System.Collections.Specialized/4.0.1": {
+        "dependencies": {
+          "System.Collections.NonGeneric": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Collections.Specialized.dll": {}
+        }
+      },
+      "System.ComponentModel.Primitives/4.1.0": {
+        "runtime": {
+          "lib/netstandard1.0/System.ComponentModel.Primitives.dll": {}
+        }
+      },
+      "System.Drawing-dotnet-core/1.2.3": {
+        "dependencies": {
+          "System.Drawing.Primitives": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.6/System.Drawing-dotnet-core.dll": {}
+        }
+      },
+      "System.Drawing.Primitives/4.3.0": {
+        "runtime": {
+          "lib/netstandard1.1/System.Drawing.Primitives.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RzWare.GLibNet.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FreeImage-dotnet-core/4.3.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-n+8EbKDM/z/YTzZRrkyvUwoTZlWRsQGiCWnfNwDhLjTJE6Zvbw2LOxB9J/bgvjwCPDz/19CE5uCleoDirAl74g==",
+      "path": "freeimage-dotnet-core/4.3.5",
+      "hashPath": "freeimage-dotnet-core.4.3.5.nupkg.sha512"
+    },
+    "OpenTK.NETCore/1.1.2749.6433": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6BKtR8G02nx/+tMUnzSLMd4XWabSJyet6zrLcaccEw1LHvByrBA5uMsf9qHNU7Sptvz0T/Xt4X+M1I82cFqygA==",
+      "path": "opentk.netcore/1.1.2749.6433",
+      "hashPath": "opentk.netcore.1.1.2749.6433.nupkg.sha512"
+    },
+    "System.Collections.NonGeneric/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hztRvPdAArlczqIeUWSf4wSqyYIBHyS1wkkdvaB9SFdrYYWp9efPXt+7eE1SrmUbqT8iRT+ACyhcIQ3fYX7w5w==",
+      "path": "system.collections.nongeneric/4.0.1",
+      "hashPath": "system.collections.nongeneric.4.0.1.nupkg.sha512"
+    },
+    "System.Collections.Specialized/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/BZCNQbqo0AYKwNxJAGWmmZEYNwqcXWKquQuncUr8dwvLmjAnjHMsJ74xDPYQywvK6pzcasBl36Nlx51EQSORA==",
+      "path": "system.collections.specialized/4.0.1",
+      "hashPath": "system.collections.specialized.4.0.1.nupkg.sha512"
+    },
+    "System.ComponentModel.Primitives/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dw7+Mq37ZhUFwGKDeJdg5tREMDYg+yiGx7znvBExzyshN9Zv23k0y9h38K2CeUxvQAV3zLllVxWkqojr6vAbPQ==",
+      "path": "system.componentmodel.primitives/4.1.0",
+      "hashPath": "system.componentmodel.primitives.4.1.0.nupkg.sha512"
+    },
+    "System.Drawing-dotnet-core/1.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XqfSnTiMhpX/S14v9luajRgG8hFS//sa2QWK3yrTPx3veFMjL0IuAZ5cV0qPEdWQnCtR0kzjKz6W7Wt15KftMA==",
+      "path": "system.drawing-dotnet-core/1.2.3",
+      "hashPath": "system.drawing-dotnet-core.1.2.3.nupkg.sha512"
+    },
+    "System.Drawing.Primitives/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1QU/c35gwdhvj77fkScXQQbjiVAqIL3fEYn/19NE0CV/ic5TN5PyWAft8HsrbRd4SBLEoErNCkWSzMDc0MmbRw==",
+      "path": "system.drawing.primitives/4.3.0",
+      "hashPath": "system.drawing.primitives.4.3.0.nupkg.sha512"
+    }
+  }
+}

@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RazorWare.CoreDL.Testing {
    using System.Threading;
+   using System.Threading.Tasks;
    using RazorWare.CoreDL.Internals;
 
    [TestClass]
@@ -19,13 +20,19 @@ namespace RazorWare.CoreDL.Testing {
       [TestMethod]
       public void ConstructedEventPump( ) {
          Assert.IsNotNull(eventPump);
-         Assert.IsTrue(eventPump.IsInitialized);
          Assert.IsFalse(eventPump.IsRunning);
       }
 
       [TestMethod]
       public void StartStopEventPump( ) {
-         eventPump.Start();
+         ManualResetEventSlim signal = new ManualResetEventSlim(false);
+         eventPump.EventPumpStateChanged += (arg) => {
+            signal.Set();
+         };
+
+         Task task = Task.Factory.StartNew(() => eventPump.Start());
+         signal.Wait();
+         signal.Reset();
 
          Assert.IsTrue(eventPump.IsRunning);
 
@@ -33,8 +40,12 @@ namespace RazorWare.CoreDL.Testing {
          Thread.Sleep(500);
 
          eventPump.Stop();
+         signal.Wait();
 
          Assert.IsFalse(eventPump.IsRunning);
+
+         signal.Dispose();
+         task.Dispose();
       }
    }
 }

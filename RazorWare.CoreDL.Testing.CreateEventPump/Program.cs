@@ -13,8 +13,6 @@ namespace RazorWare.CoreDL.Testing.CreateEventPump {
 
          var eventPump = EventPump.Instance;
 
-         Console.WriteLine($"EventPump primed: {eventPump.IsInitialized}");
-
          eventPump.Start();
 
          Console.WriteLine($"EventPump running: {eventPump.IsRunning}");

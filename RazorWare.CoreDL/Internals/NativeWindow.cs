@@ -2,15 +2,33 @@
 using System.Text;
 
 namespace RazorWare.CoreDL.Internals {
+   using RazorWare.Geometry;
    using RazorWare.CoreDL.Core;
 
-   internal sealed class NativeWindow : IDisposable {
-      private readonly IntPtr nativeHandle;
+   internal sealed class NativeWindow : ISDLHwnd, IDisposable {
+      private readonly byte[] title;
+      private readonly SDL_WINDOW winFlags;
+      private readonly uint sdlSystem = SDL_INIT.VIDEO;
+
+      private IntPtr nativePointer;
+      private Location<int> location;
+      private Size<int> size;
 
       internal static Encoding Encoder => Constants.Encoder;
 
-      internal NativeWindow(string WindowTitle, int locX=SDL_WINDOWPOS.CENTERED, int locY=SDL_WINDOWPOS.CENTERED, int width=800, int height=600, SDL_WINDOW windowFlags=SDL_WINDOW.OPENGL) {
-         nativeHandle = SDLI.SDL_CreateWindow(Encoder.GetBytes(WindowTitle), locX, locY, width, height, windowFlags);
+      uint ISDLHwnd.SdlSystem => sdlSystem;
+
+      internal NativeWindow(string windowTitle, int locX=SDL_WINDOWPOS.CENTERED, int locY=SDL_WINDOWPOS.CENTERED, int width=800, int height=600, SDL_WINDOW windowFlags=SDL_WINDOW.OPENGL) {
+         title = Encoder.GetBytes(windowTitle);
+         winFlags = windowFlags;
+         location = new Location<int>(locX, locY);
+         size = new Size<int>(width, height);
+      }
+
+      void ISDLHwnd.Start( ) {
+         if (SDLI.SDL_WasInit(sdlSystem) == sdlSystem) {
+            nativePointer = SDLI.SDL_CreateWindow(title, location.X, location.Y, size.Width, size.Height, winFlags);
+         }
       }
 
       #region IDisposable Support
@@ -23,7 +41,7 @@ namespace RazorWare.CoreDL.Internals {
             }
 
             // free unmanaged resources (unmanaged objects) and override a finalizer below.
-            SDLI.SDL_DestroyWindow(nativeHandle);
+            SDLI.SDL_DestroyWindow(nativePointer);
 
             // TODO: set large fields to null.
 

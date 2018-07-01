@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RazorWare.CoreDL.Internals {
    using RazorWare.CoreDL.Core;
@@ -9,73 +7,73 @@ namespace RazorWare.CoreDL.Internals {
    /// Loops on a threaded task
    /// </summary>
    internal sealed class EventPump : IDisposable{
+      internal delegate void OnEventPumpStateChange(EventPumpState state);
+
       private static readonly Lazy<EventPump> _eventPump = new Lazy<EventPump>(( ) => new EventPump());
 
-      private readonly ManualResetEventSlim waitSignal;
+      private ISDLHwnd sdlHwnd;
 
-      private CancellationTokenSource taskWatcher;
+      internal static EventPump Instance => _eventPump.Value;
 
-      public static EventPump Instance => _eventPump.Value;
+      internal bool IsRunning { get; private set; }
+      internal event OnEventPumpStateChange EventPumpStateChanged;
 
-      public bool IsInitialized { get; private set; }
-      public bool IsRunning { get; private set; }
+      private EventPump( ) { }
 
-      private EventPump() {
-         // initialize SDL Timer so Events will publish
-         IsInitialized = SDLI.SDL_Init(SDL_INIT.TIMER) == 0;
-         waitSignal = new ManualResetEventSlim(false);
+      /// <summary>
+      /// EventPump will only function with one system - TIMER or VIDEO or AUDIO, etc.
+      /// Can be stopped and restarted with a different system although the effects of
+      /// doing so need to be fully discovered.
+      /// </summary>
+      /// <param name="system"></param>
+      internal void Start(uint system = SDL_INIT.TIMER) {
+         if (sdlHwnd == null || SDLI.SDL_WasInit(system) != sdlHwnd.SdlSystem) {
+            // changing SDL system initialization
+            SDLI.SDL_Quit();
+
+            SDLI.SDL_Init(system);
+         }
+
+         if (!IsRunning && system == SDL_INIT.TIMER) {
+            PollEvents();
+         }
       }
 
-      internal async void Start() {
-         if (!IsRunning) {
-            IsRunning = await Start(GetEventLoop());
+      internal void Start(ISDLHwnd hwnd) {
+         Start(hwnd.SdlSystem);
+
+         if (SDLI.SDL_WasInit(hwnd.SdlSystem) == hwnd.SdlSystem) {
+            sdlHwnd = hwnd;
+            PollEvents(sdlHwnd.Start);
          }
       }
 
       internal void Stop() {
          var eventState = EventPumpCommand.Quit.Execute();
-         waitSignal.Wait();
       }
 
-      private Task GetEventLoop() {
-         taskWatcher = new CancellationTokenSource();
-
-         return new Task(() => {
-            PollEvents();
-         }, taskWatcher.Token);         
-      }
-
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-      private async Task<bool> Start(Task startTask) {
-         startTask.Start();
-
-         return true;
-      }
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
-
-      private void PollEvents() {
-         waitSignal.Reset();
+      private void PollEvents(Action onStart = null) {
+         IsRunning = true;
+         EventPumpStateChanged?.Invoke(IsRunning);
 
          // main loop keeping pump alive
          while(IsRunning) {
+            onStart?.Invoke();
+            onStart = null;
 
             // event polling loop
             while(SDLI.SDL_PollEvent(out SDL_Event sdlEvent) != 0) {
                if (sdlEvent.type == SDL_EVENTTYPE.QUIT) {
-                  taskWatcher.Cancel();
                   IsRunning = false;
+                  EventPumpStateChanged?.Invoke(IsRunning);
                }
             }
          }
-
-         waitSignal.Set();
       }
 
       public void Dispose( ) {
-         SDLI.SDL_QuitSubSystem(SDL_INIT.TIMER);
-
-         taskWatcher?.Dispose();
-         waitSignal.Dispose();
+         SDLI.SDL_QuitSubSystem(sdlHwnd.SdlSystem);
+         sdlHwnd.Dispose();
       }
    }
 }

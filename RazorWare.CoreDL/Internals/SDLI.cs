@@ -133,11 +133,11 @@ namespace RazorWare.CoreDL.Internals {
 
       /* userdata refers to a void* */
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
-      internal static extern void SDL_SetEventFilter(         SDL_EventFilter filter,         IntPtr userdata      );
+      internal static extern void SDL_SetEventFilter(SDL_EventFilter filter, IntPtr userdata);
 
       /* userdata refers to a void* */
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
-      internal static extern SDL_BOOL SDL_GetEventFilter(         out IntPtr filter,         out IntPtr userdata      );
+      internal static extern SDL_BOOL SDL_GetEventFilter(out IntPtr filter, out IntPtr userdata);
 
       /// <summary>
       /// TODO: Move out of interface
@@ -163,13 +163,13 @@ namespace RazorWare.CoreDL.Internals {
       }
 
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
-      internal static extern void SDL_AddEventWatch(         SDL_EventFilter filter,         IntPtr userdata      );
+      internal static extern void SDL_AddEventWatch(SDL_EventFilter filter, IntPtr userdata);
 
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
-      internal static extern void SDL_DelEventWatch(         SDL_EventFilter filter,         IntPtr userdata      );
+      internal static extern void SDL_DelEventWatch(SDL_EventFilter filter, IntPtr userdata);
 
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
-      internal static extern void SDL_FilterEvents(         SDL_EventFilter filter,         IntPtr userdata      );
+      internal static extern void SDL_FilterEvents(SDL_EventFilter filter, IntPtr userdata);
 
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
       internal static extern byte SDL_EventState(SDL_EVENTTYPE type, int state);
@@ -257,6 +257,34 @@ namespace RazorWare.CoreDL.Internals {
 
       [DllImport(SDLib, EntryPoint = "SDL_LogMessageV", CallingConvention = CallingConvention.Cdecl)]
       internal static extern void SDL_LogMessageV(int category, SDL_LOGPRIORITY priority, byte[] logEntry);
+      #endregion
+
+      #region SDL Renderer
+      /// <summary>
+      /// Create an SDL Renderer given window*, index and flags
+      /// </summary>
+      /// <param name="window">window*</param>
+      /// <param name="index">rendering driver index to initialize; -1 to initialize first driver supporting flags</param>
+      /// <param name="flags">0, or one or more SDL_RENDERERMODES</param>
+      /// <returns></returns>
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern IntPtr SDL_CreateRenderer(IntPtr window, int index, SDL_RENDERERMODES flags);
+
+      /* IntPtr refers to an SDL_Renderer*, surface to an SDL_Surface* */
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern IntPtr SDL_CreateSoftwareRenderer(IntPtr surface);
+
+      /// <summary>
+      /// Create an SDL Texture given renderer*, size, format and access
+      /// </summary>
+      /// <param name="renderer">renderer*</param>
+      /// <param name="format">format</param>
+      /// <param name="access">access</param>
+      /// <param name="w">width</param>
+      /// <param name="h">height</param>
+      /// <returns>texture*</returns>
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern IntPtr SDL_CreateTexture(IntPtr renderer, uint format, int access, int w, int h);
       #endregion
    }
 }

@@ -85,7 +85,10 @@ namespace RazorWare.CoreDL.Internals {
       internal static extern IntPtr SDL_CreateWindow(byte[] title, int x, int y, int w, int h, SDL_WINDOW flags);
 
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
-      public static extern void SDL_DestroyWindow(IntPtr window);
+      internal static extern void SDL_DestroyWindow(IntPtr window);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      internal static extern int SDL_UpdateWindowSurface(IntPtr window);
       #endregion
 
       #region SDL Events
@@ -260,6 +263,9 @@ namespace RazorWare.CoreDL.Internals {
       #endregion
 
       #region SDL Renderer
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern int SDL_RenderClear(IntPtr renderer);
+
       /// <summary>
       /// Create an SDL Renderer given window*, index and flags
       /// </summary>
@@ -270,9 +276,11 @@ namespace RazorWare.CoreDL.Internals {
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
       public static extern IntPtr SDL_CreateRenderer(IntPtr window, int index, SDL_RENDERERMODES flags);
 
-      /* IntPtr refers to an SDL_Renderer*, surface to an SDL_Surface* */
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
       public static extern IntPtr SDL_CreateSoftwareRenderer(IntPtr surface);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern int SDL_SetRenderDrawColor(IntPtr renderer, byte r, byte g, byte b, byte a);
 
       /// <summary>
       /// Create an SDL Texture given renderer*, size, format and access
@@ -285,6 +293,54 @@ namespace RazorWare.CoreDL.Internals {
       /// <returns>texture*</returns>
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
       public static extern IntPtr SDL_CreateTexture(IntPtr renderer, uint format, int access, int w, int h);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern IntPtr SDL_CreateTextureFromSurface(IntPtr renderer, IntPtr surface);
+
+      //[DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      //public static extern int SDL_RenderCopy(
+      //   IntPtr renderer,
+      //   IntPtr texture,
+      //   ref SDL_Rect srcrect,
+      //   ref SDL_Rect dstrect
+      //);
+
+      /* renderer refers to an SDL_Renderer*, texture to an SDL_Texture*.
+		 * Internally, this function contains logic to use default values when
+		 * source and destination rectangles are passed as NULL.
+		 * This overload allows for IntPtr.Zero (null) to be passed for srcrect.
+		 */
+      //[DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      //public static extern int SDL_RenderCopy(
+      //   IntPtr renderer,
+      //   IntPtr texture,
+      //   IntPtr srcrect,
+      //   ref SDL_Rect dstrect
+      //);
+
+      /* renderer refers to an SDL_Renderer*, texture to an SDL_Texture*.
+		 * Internally, this function contains logic to use default values when
+		 * source and destination rectangles are passed as NULL.
+		 * This overload allows for IntPtr.Zero (null) to be passed for dstrect.
+		 */
+      //[DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      //public static extern int SDL_RenderCopy(
+      //   IntPtr renderer,
+      //   IntPtr texture,
+      //   ref SDL_Rect srcrect,
+      //   IntPtr dstrect
+      //);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern int SDL_RenderCopy(IntPtr renderer, IntPtr texture, IntPtr srcrect, IntPtr dstrect);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern void SDL_RenderPresent(IntPtr renderer);
+      #endregion
+
+      #region SDL Surface
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern IntPtr SDL_CreateRGBSurface(uint flags, int width, int height, int depth, uint Rmask, uint Gmask, uint Bmask, uint Amask);
       #endregion
    }
 }

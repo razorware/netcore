@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.CoreDL.Testing.Cr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.Core.Toolbox", "RazorWare.Core.Toolbox\RazorWare.Core.Toolbox.csproj", "{1B1EAB21-4F9E-4022-95C6-ABB80611F14C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorWare.Core.Media", "RazorWare.Core.Game\RazorWare.Core.Media.csproj", "{D7757D90-0B16-43C4-A653-2DF2B2A4D6C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.Core.Media", "RazorWare.Core.Game\RazorWare.Core.Media.csproj", "{D7757D90-0B16-43C4-A653-2DF2B2A4D6C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorWare.Core.Business", "RazorWare.Core.Business\RazorWare.Core.Business.csproj", "{DCE7B1F8-2A23-44FC-BC97-213252B94350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.Core.Business", "RazorWare.Core.Business\RazorWare.Core.Business.csproj", "{DCE7B1F8-2A23-44FC-BC97-213252B94350}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorWare.Core.Business.Testing.CreateApplicationContext", "RazorWare.Core.Business.Testing.CreateApplicationContext\RazorWare.Core.Business.Testing.CreateApplicationContext.csproj", "{4005EB0E-073A-472F-B095-AB4B661218A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorWare.Core.Media.Testing.CreateGameContext", "RazorWare.Core.Media.Testing.CreateGameContext\RazorWare.Core.Media.Testing.CreateGameContext.csproj", "{473F7FA4-8BD6-48CC-8BDD-0A7D6A0D58E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{DCE7B1F8-2A23-44FC-BC97-213252B94350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCE7B1F8-2A23-44FC-BC97-213252B94350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCE7B1F8-2A23-44FC-BC97-213252B94350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4005EB0E-073A-472F-B095-AB4B661218A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4005EB0E-073A-472F-B095-AB4B661218A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4005EB0E-073A-472F-B095-AB4B661218A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4005EB0E-073A-472F-B095-AB4B661218A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{473F7FA4-8BD6-48CC-8BDD-0A7D6A0D58E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{473F7FA4-8BD6-48CC-8BDD-0A7D6A0D58E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{473F7FA4-8BD6-48CC-8BDD-0A7D6A0D58E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{473F7FA4-8BD6-48CC-8BDD-0A7D6A0D58E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

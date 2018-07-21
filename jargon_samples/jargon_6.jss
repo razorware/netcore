@@ -1,0 +1,3 @@
+Window{
+  target: sample.Sample;
+}

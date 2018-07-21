@@ -1,4 +1,5 @@
-   using System;
+using System;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RazorWare.CoreDL.Testing {
@@ -12,7 +13,7 @@ namespace RazorWare.CoreDL.Testing {
       static readonly IntPtr BAD_WINDOW = new IntPtr(0);
 
       [TestCleanup]
-      public void CleanupSDL() {
+      public void CleanupSDL( ) {
          SDLI.SDL_Quit();
       }
 

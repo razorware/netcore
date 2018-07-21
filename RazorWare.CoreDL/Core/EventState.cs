@@ -4,12 +4,11 @@ namespace RazorWare.CoreDL.Core {
    using RazorWare.CoreDL.Internals;
 
    public class EventState {
-      private readonly EventType type;
 
-      public EventType Type => type;
+      public EventType Type { get; }
 
       internal EventState(ref SDL_Event sdlEvent) {
-         type = (EventType)sdlEvent.type;
+         Type = (EventType)sdlEvent.type;
       }
    }
 }

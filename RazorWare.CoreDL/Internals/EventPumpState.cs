@@ -1,15 +1,20 @@
 ﻿namespace RazorWare.CoreDL.Internals {
+   using RazorWare.CoreDL.Core;
+
    internal struct EventPumpState {
 
       internal static EventPumpState Running = (true, "Running");
       internal static EventPumpState Idle = (false, "Idle");
 
       private bool flag;
-      private string id;
 
-      private EventPumpState(bool isRunning, string stateId) {
+      public string Tag { get; }
+      public int Id { get; }
+
+      private EventPumpState(bool isRunning, string stateTag) {
          flag = isRunning;
-         id = stateId;
+         Tag = stateTag;
+         Id = Tag.GetHashCode();
       }
 
       public static implicit operator EventPumpState((bool isRunning, string id) stateInfo) {
@@ -17,28 +22,36 @@
       }
 
       public static implicit operator EventPumpState(bool isRunning) {
-         EventPumpState evState;
-
-         switch (isRunning) {
-            case true:
-               evState = Running;
-
-               break;
-            case false:
-            default:
-               evState = Idle;
-
-               break;
+         if (isRunning) {
+               return Running;
          }
 
-         return evState;
+         return Idle;
       }
 
-      public static implicit operator string (EventPumpState state) {
-         return state.id;
+      public static implicit operator DispatchState(EventPumpState evState) {
+         if (evState.flag) {
+            return DispatchState.Running;
+         }
+
+         return DispatchState.Idle;
       }
 
-      public static implicit operator bool (EventPumpState state) {
+      public static implicit operator EventPumpState(DispatchState dispState) {
+         switch (dispState) {
+            case DispatchState.Running:
+               return Running;
+            case DispatchState.Idle:
+            default:
+               return Idle;
+         }
+      }
+
+      public static implicit operator string(EventPumpState state) {
+         return state.Tag;
+      }
+
+      public static implicit operator bool(EventPumpState state) {
          return state.flag;
       }
 

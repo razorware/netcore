@@ -9,21 +9,19 @@ namespace RazorWare.CoreDL.Core {
 
    public abstract class Context : IDisposable {
       private static readonly EventPump eventPump = EventPump.Instance;
-
-      private readonly Keyboard keyboard;
-
       private EventPumpState currentState;
 
       public event OnContextStart Start;
       public event OnContextClosing Closing;
       public event OnContextQuit Exit;
-
+      
       public string Name { get; }
+      public Keyboard Keyboard { get; }
 
       protected Context(string name) {
          Name = name;
          currentState = eventPump.IsRunning;
-         keyboard = Keyboard.Instance;
+         Keyboard = Keyboard.Instance;
 
          eventPump.EventPumpStateChanged += OnEventPumpStateChanged;
       }
@@ -37,28 +35,25 @@ namespace RazorWare.CoreDL.Core {
 
       public void Run(IWindow window) {
          RegisterEventDevices();
-         eventPump.Start(((INativeWindow)window).GetHwndDevice());
+         eventPump.Start(((INativeWindow)window).GetNativeHandle());
       }
 
       public void Quit( ) {
-         OnContextClosing();
+         // TODO: make cancellable
+         OnContextStopping();
+         Closing?.Invoke();
+
          eventPump.Stop();
       }
 
-      protected virtual void OnContextStart( ) {
-         Start?.Invoke();
-      }
+      protected virtual void OnContextStart( ) { }
 
-      protected virtual void OnContextClosing() {
-         Closing?.Invoke();
-      }
+      protected virtual void OnContextStopping( ) { }
 
-      protected virtual void OnContextQuit() {
-         Exit?.Invoke();
-      }
+      protected virtual void OnContextQuit( ) { }
 
       private void RegisterEventDevices( ) {
-         eventPump.RegisterEventListener(keyboard.Device);
+         eventPump.RegisterEventListener(Keyboard.Device);
       }
 
       private void OnEventPumpStateChanged(DispatchState state) {
@@ -66,19 +61,29 @@ namespace RazorWare.CoreDL.Core {
             return;
          }
 
-         // we know that a state change is occuring
+         // state change is occuring
          switch (state) {
             case DispatchState.Running:
                currentState = state;
-               OnContextStart();
+               StartContext();
 
                break;
             case DispatchState.Idle:
                currentState = state;
-               OnContextQuit();
+               StopContext();
 
                break;
          }
+      }
+
+      private void StartContext( ) {
+         OnContextStart();
+         Start?.Invoke();
+      }
+
+      private void StopContext( ) {
+         OnContextQuit();
+         Exit?.Invoke();
       }
 
       public void Dispose( ) {

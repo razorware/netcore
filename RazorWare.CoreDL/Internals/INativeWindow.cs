@@ -2,6 +2,6 @@
    using RazorWare.CoreDL.Core;
 
    internal interface INativeWindow : IWindow {
-      ISDLHwnd GetHwndDevice( );
+      ISDLNative GetNativeHandle( );
    }
 }

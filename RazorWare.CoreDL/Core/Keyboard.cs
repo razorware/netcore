@@ -21,7 +21,7 @@ namespace RazorWare.CoreDL.Core {
       }
 
       private void Process(SourceWindowEvent windowEvent) {
-         
+         var p = true;
       }
    }
 }

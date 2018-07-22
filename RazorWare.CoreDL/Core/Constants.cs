@@ -1,11 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-
-namespace RazorWare.CoreDL.Core {
+﻿namespace RazorWare.CoreDL.Core {
+   /// <summary>
+   /// Constant values (value types - int, double, etc)
+   /// </summary>
    public static class Constants {
-
-      public static Encoding Encoder => Encoding.UTF8;
-
    }
 }

@@ -64,6 +64,20 @@ namespace RazorWare.CoreDL.Internals {
       internal static extern uint SDL_WasInit(uint flags);
       #endregion
 
+      #region SDL Error
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      internal static extern void SDL_ClearError( );
+
+      [DllImport(SDLib, EntryPoint = "SDL_GetError", CallingConvention = CallingConvention.Cdecl)]
+      private static extern IntPtr PRIVATE_SDL_GetError( );
+      internal static Func<IntPtr> SDL_GetError = ( ) => {
+         return PRIVATE_SDL_GetError();
+      };
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      internal static extern void SDL_SetError(byte[] fmtAndArglist);
+      #endregion
+
       #region Platform
       [DllImport(SDLib, EntryPoint = "SDL_GetPlatform", CallingConvention = CallingConvention.Cdecl)]
       private static extern IntPtr PRIVATE_SDL_GetPlatform( );
@@ -89,6 +103,12 @@ namespace RazorWare.CoreDL.Internals {
 
       [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
       internal static extern int SDL_UpdateWindowSurface(IntPtr window);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern void SDL_MaximizeWindow(IntPtr window);
+
+      [DllImport(SDLib, CallingConvention = CallingConvention.Cdecl)]
+      public static extern int SDL_SetWindowFullscreen(IntPtr window, uint flags);
       #endregion
 
       #region SDL Events

@@ -1,17 +1,20 @@
 ﻿namespace RazorWare.CoreDL.Core {
-   using System;
    using RazorWare.CoreDL.Internals;
 
    public abstract class BaseWindow : INativeWindow {
+      protected delegate void Error(string Message);
+
       private WindowStyles styles;
 
-      internal NativeWindow Native { get; }
+      internal NativeWindow NativeWindow { get; }
 
-      public int Top => Native.Location.Y;
-      public int Left => Native.Location.X;
-      public int Width => Native.Size.Width;
-      public int Height => Native.Size.Height;
-      public string Title => Native.Name;
+      protected event Error OnError;
+      
+      public int Top => NativeWindow.Location.Y;
+      public int Left => NativeWindow.Location.X;
+      public int Width => NativeWindow.Size.Width;
+      public int Height => NativeWindow.Size.Height;
+      public string Title => NativeWindow.Name;
       public bool IsInitialized { get; private set; }
       public WindowStyles Style {
          get {
@@ -25,11 +28,17 @@
       }
 
       protected BaseWindow(string title, int width, int height, int left, int top) {
-         Native = new NativeWindow(title, left, top, width, height);
+         NativeWindow = new NativeWindow(title, left, top, width, height);
 
-         Native.OnConfigure(Initializing);
-         Native.OnInitialized(Initialized);
-         Native.OnResize(Resize);
+         NativeWindow.OnConfigure(Initializing);
+         NativeWindow.OnInitialized(Initialized);
+         NativeWindow.OnResize(Resize);
+      }
+
+      protected void SetWindowState(WindowState state) {
+         if (!NativeWindow.TrySetWindowState(state, out CharPointer msgPointer)) {
+            OnError?.Invoke(msgPointer);
+         }
       }
 
       protected virtual void OnInitializing( ) { }
@@ -40,7 +49,7 @@
          // Initializing handler
          OnInitializing();
 
-         Native.Style = Style;
+         NativeWindow.Style = Style;
 
          // Initializing event
       }
@@ -61,12 +70,12 @@
          // Resized event
       }
 
-      ISDLHwnd INativeWindow.GetHwndDevice( ) {
-         return Native;
+      ISDLNative INativeWindow.GetNativeHandle( ) {
+         return NativeWindow;
       }
 
       public void Dispose( ) {
-         Native.Dispose();
+         NativeWindow.Dispose();
       }
    }
 }

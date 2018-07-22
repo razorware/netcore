@@ -2,31 +2,35 @@
    using RazorWare.CoreDL.Internals;
 
    public class SourceWindowEvent {
+      internal SDL_Event EventInfo { get; }
+
       public object Source { get; }
       public EventType Type { get; }
 
       public bool Resize { get; private set; }
 
       internal SourceWindowEvent(object source, SDL_Event sdlEvent) {
+         EventInfo = sdlEvent;
          Source = source;
-         Type = (EventType)sdlEvent.type;
+         Type = (EventType)EventInfo.type;
 
-         ProcessSourceEvent(sdlEvent);
+         ProcessSourceEvent();
       }
 
-      private void ProcessSourceEvent(SDL_Event sdlEvent) {
+      private void ProcessSourceEvent() {
          switch (Type) {
             case EventType.Quit:
                break;
             case EventType.Window:
-               ProcessWindowEvent(sdlEvent.window);
+               ProcessWindowEvent(EventInfo.window);
 
                break;
             case EventType.SysWm:
                break;
             case EventType.KeyDown:
-               break;
             case EventType.KeyUp:
+               ProcessKeyboardEvent(Type, EventInfo.key);
+
                break;
             case EventType.TextEditing:
                break;

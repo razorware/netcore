@@ -15,7 +15,7 @@ namespace RazorWare.Core.Business.Forms {
       }
 
       protected override void OnInitialized( ) {
-         Native.SetBackground(Background.R, Background.G, Background.B, Background.A);
+         NativeWindow.SetBackground(Background.R, Background.G, Background.B, Background.A);
       }
 
       protected override void OnResized( ) {

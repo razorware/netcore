@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace RazorWare.CoreDL.Internals {
-   internal interface ISDLHwnd : IDisposable {
+   internal interface ISDLNative : IDisposable {
       uint SdlSystem { get; }
 
       void Start(EventPump eventPump);

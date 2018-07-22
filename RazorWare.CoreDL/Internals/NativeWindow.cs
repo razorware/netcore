@@ -6,10 +6,12 @@ namespace RazorWare.CoreDL.Internals {
    using RazorWare.Geometry;
    using RazorWare.CoreDL.Core;
 
-   internal sealed class NativeWindow : ISDLHwnd, IEventListener, IDisposable {
+   internal sealed class NativeWindow : ISDLNative, IEventListener, IDisposable {
       internal delegate void Configure( );
       internal delegate void Initialized(bool isInitialized);
       internal delegate void Resize( );
+
+      private const int SUCCESS = 0;
 
       private readonly byte[] title;
       private readonly uint sdlSystem = SDL_INIT.VIDEO;
@@ -23,9 +25,9 @@ namespace RazorWare.CoreDL.Internals {
       private Initialized initialized;
       private Resize resize;
 
-      internal static Encoding Encoder => Constants.Encoder;
+      internal static Encoding Encoder => Fixtures.Encoder;
 
-      uint ISDLHwnd.SdlSystem => sdlSystem;
+      uint ISDLNative.SdlSystem => sdlSystem;
       public Point Location => location.ToPoint();
       public Size Size => size.ToSize();
       public EventSourceType Type => EventSourceType.Window;
@@ -33,6 +35,7 @@ namespace RazorWare.CoreDL.Internals {
 
       public EventFilter Events { get; }
       public WindowStyles Style { get; internal set; }
+      public WindowState State { get; private set; }
 
       internal NativeWindow(int locX, int locY, int width, int height) {
          Events = new EventFilter(this);
@@ -57,7 +60,7 @@ namespace RazorWare.CoreDL.Internals {
          Style = (WindowStyles)windowFlags;
       }
 
-      void ISDLHwnd.Start(EventPump eventPump) {
+      void ISDLNative.Start(EventPump eventPump) {
          if (SDLI.SDL_WasInit(sdlSystem) != sdlSystem) {
             // TODO: set error condition
          }
@@ -103,6 +106,49 @@ namespace RazorWare.CoreDL.Internals {
 
       internal void SetBackground(byte red, byte green, byte blue, byte alpha) {
          SDLI.SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
+      }
+
+      internal bool TrySetWindowState(WindowState windowState, out CharPointer errMessage) {
+         errMessage = CharPointer.Null;
+         bool success = false;
+
+         if (State != windowState) {
+            switch (windowState) {
+               case WindowState.FullScreen:
+                  SDLI.SDL_MaximizeWindow(nativePointer);
+                  success = SDLI.SDL_SetWindowFullscreen(nativePointer, (uint)windowState) == SUCCESS;
+
+                  break;
+               case WindowState.Maximized:
+                  SDLI.SDL_MaximizeWindow(nativePointer);
+                  success = true;
+
+                  break;
+               case WindowState.Desktop:
+
+                  break;
+               case WindowState.Windowed:
+               default:
+                  // restore (??) window
+
+                  break;
+            }
+         }
+         else {
+            // custom message
+            errMessage = $"window state already set: {State}";
+
+            return false;
+         }
+
+         if (!success) {
+            errMessage = SDLI.SDL_GetError;
+         }
+         else {
+            State = windowState;
+         }
+
+         return errMessage == CharPointer.Null;
       }
 
       private void EventPumpStateChanged(DispatchState state) {

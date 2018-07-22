@@ -15,7 +15,7 @@ namespace RazorWare.CoreDL.Internals {
 
       private readonly List<IEventListener> listeners;
 
-      private ISDLHwnd sdlHwnd;
+      private ISDLNative sdlHwnd;
       private OnRendererUpdate rendererUpdate;
       private EventPumpState state;
 
@@ -47,7 +47,7 @@ namespace RazorWare.CoreDL.Internals {
          }
       }
 
-      internal void Start(ISDLHwnd hwnd) {
+      internal void Start(ISDLNative hwnd) {
          Start(hwnd.SdlSystem);
 
          if (SDLI.SDL_WasInit(hwnd.SdlSystem) == hwnd.SdlSystem) {
@@ -84,6 +84,10 @@ namespace RazorWare.CoreDL.Internals {
                   Console.WriteLine($"No event listener [{sdlEvent.type}] found");
                }
                else {
+                  if (listener.Name == "Keyboard") {
+                     var p = true;
+                  }
+
                   listener.Process(new SourceWindowEvent(listener.Events.Source, sdlEvent));
                }
 

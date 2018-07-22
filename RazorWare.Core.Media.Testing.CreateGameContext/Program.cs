@@ -1,4 +1,5 @@
 ﻿using System;
+using RazorWare.CoreDL.Core;
 
 namespace RazorWare.Core.Media.Testing.CreateGameContext {
    class Program {
@@ -40,7 +41,9 @@ namespace RazorWare.Core.Media.Testing.CreateGameContext {
 
          Console.WriteLine();
          Console.WriteLine("[1] Start Default Game Window");
-         Console.WriteLine("[2] Start Game context");
+         Console.WriteLine("[2] Start Game context from JSON config");
+         Console.WriteLine("[3] Start Game context from Jargon (.jss) config");
+
          Console.WriteLine("___");
          Console.WriteLine("[X] Exit current Game Context");
          Console.WriteLine("___");
@@ -57,7 +60,19 @@ namespace RazorWare.Core.Media.Testing.CreateGameContext {
 
                break;
             case ConsoleKey.D2:
-               p.game = new Game("");
+               SubscribeEvents(p.game = new Game("gamecfg.json"));
+               
+               exitHandler = ( ) => {
+                  p.game?.Quit();
+               };
+
+               //p.game.Keyboard.KeyPress;
+               p.game.Run();
+
+               break;
+            case ConsoleKey.D3:
+               SubscribeEvents(p.game = new Game("gamecfg.jss"));
+
                exitHandler = ( ) => {
                   p.game?.Quit();
                };
@@ -74,6 +89,31 @@ namespace RazorWare.Core.Media.Testing.CreateGameContext {
          }
 
          writeOptions?.Invoke();
+      }
+
+      private static void SubscribeEvents(Game gameContext) {
+         gameContext.Start += OnApplicationStart;
+         gameContext.Closing += OnApplicationClosing;
+         gameContext.Exit += OnApplicationExit;
+      }
+
+      private static void OnApplicationStart( ) {
+         Console.WriteLine($"{p.game.Name} started");
+      }
+
+      private static void OnApplicationClosing( ) {
+         Console.WriteLine($"{p.game.Name} closing");
+      }
+
+      private static void OnApplicationExit( ) {
+         Console.WriteLine($"{p.game.Name} quit");
+
+         p.game.Start -= OnApplicationStart;
+         p.game.Closing -= OnApplicationClosing;
+         p.game.Exit -= OnApplicationExit;
+
+         p.game.Dispose();
+         p.game = null;
       }
    }
 }
